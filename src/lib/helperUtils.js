@@ -64,47 +64,51 @@ const totalSort = function(a,b) {
   }
 }
 
+const fieldHasValue = function(field) {
+  return field != undefined && field != '0' && field != ''
+}
+
 const filterAllCombos = function(opts) {
   let a = combinations;
-  if ( opts['size'] != undefined && opts['size'] != '0' && opts['size'] != ''){
+
+  if ( fieldHasValue(opts['size']) ){
     a = a.filter(e => e.length == parseInt(opts['size']));
   }
 
-  if ( opts['total'] != undefined && opts['total'] != '0' && opts['total'] != '' ){
-
+  if ( fieldHasValue(opts['total']) ){
     a = a.filter(e => sumOfDigits(e) == parseInt(opts['total']));
   }
 
-  if ( opts['included'] != undefined && opts['included'] != ''){
+  if ( fieldHasValue(opts['included']) ){
     a = a.filter(filterIncluded(opts['included']));
   }
 
-  if ( opts['excluded'] != undefined && opts['excluded'] != ''){
+  if ( fieldHasValue(opts['excluded']) ){
     a = a.filter(filterExcluded(opts['excluded']));
   }
 
-  if ( opts['minSize'] != undefined && opts['minSize'] != '' && opts['minSize'] != '0'){
+  if ( fieldHasValue(opts['minSize']) && !fieldHasValue(opts['size']) ){
     a = a.filter(e => e.length >= parseInt(opts['minSize']))
   }
 
-  if ( opts['maxSize'] != undefined && opts['maxSize'] != '' && opts['maxSize'] != '0'){
+  if ( fieldHasValue(opts['maxSize']) && !fieldHasValue(opts['size']) ){
     a = a.filter(e => e.length <= parseInt(opts['maxSize']))
   }
 
-  if ( opts['minTotal'] != undefined && opts['minTotal'] != ''  && opts['minTotal'] != '0'){
+  if ( fieldHasValue(opts['minTotal']) && !fieldHasValue(opts['total']) ){
     a = a.filter(e => sumOfDigits(e) >= parseInt(opts['minTotal']));
   }
 
-  if ( opts['maxTotal'] != undefined && opts['maxTotal'] != ''  && opts['maxTotal'] != '0'){
+  if ( fieldHasValue(opts['maxTotal']) && !fieldHasValue(opts['total']) ){
     a = a.filter(e => sumOfDigits(e) <= parseInt(opts['maxTotal']));
   }
 
-  if ( opts['total'] == undefined || opts['total'] == '0' || opts['total'] == ''){
-
+  if ( fieldHasValue(opts['total'])){
     a = a.sort(sizeSort);
   } else {
     a = a.sort(totalSort)
   }
+
   return a
 }
 

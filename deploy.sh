@@ -21,6 +21,6 @@ git branch -m master main
 #git push -f git@github.com:smkiewel/smkiewel.github.io.git main
 
 # if you are deploying to https://<USERNAME>.github.io/<REPO>
-git push -f git@github.com:smkiewel/unique-sum-helpers-2.git main:gh-pages
+git push -f git@github.com:smkiewel/unique-sum-helpers.git main:gh-pages
 
 cd -

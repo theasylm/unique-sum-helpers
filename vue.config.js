@@ -1,3 +1,3 @@
 module.exports = {
-  publicPath: '/unique-sum-helpers-2/'
+  publicPath: '/unique-sum-helpers/'
 }
