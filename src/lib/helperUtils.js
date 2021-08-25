@@ -124,44 +124,31 @@ export const getCombos = function(opts){
   }
 
   //check for min-max clash
-  if (opts['minSize'] != undefined && opts['minSize'] != '' && opts['minSize'] != '0' &&
-      opts['maxSize'] != undefined && opts['maxSize'] != '' && opts['maxSize'] != '0' &&
-     (opts['size'] == undefined || opts['size'] == '0' || opts['size'] == '')) {
+  if (fieldHasValue(opts['minSize']) && fieldHasValue(opts['maxSize']) && !fieldHasValue(opts['size'])) {
     if ( parseInt(opts['minSize']) > parseInt(opts['maxSize']) ){
       return [];
     }
   }
 
   //check for min-max clash
-  if (opts['minTotal'] != undefined && opts['minTotal'] != '' && opts['minTotal'] != '0' &&
-      opts['maxTotal'] != undefined && opts['maxTotal'] != '' && opts['maxTotal'] != '0' &&
-     (opts['total'] == undefined || opts['total'] == '0' || opts['total'] == '')) {
+  if (fieldHasValue(opts['minTotal']) && fieldHasValue(opts['maxTotal']) && !fieldHasValue(opts['total'])) {
       if ( parseInt(opts['minTotal']) > parseInt(opts['maxTotal']) ){
       return [];
     }
   }
 
   //if no filters set
-  if ( (opts['included'] == undefined || opts['included'] == '' ) &&
-       (opts['excluded'] == undefined || opts['excluded'] == '' ) &&
-       (opts['minSize'] == undefined || opts['minSize'] == '' || opts['minSize'] != '0' ) &&
-       (opts['maxSize'] == undefined || opts['maxSize'] == '' || opts['maxSize'] != '0' ) &&
-       (opts['minTotal'] == undefined || opts['minTotal'] == '' || opts['minTotal'] != '0' ) &&
-       (opts['maxTotal'] == undefined || opts['maxTotal'] == '' || opts['maxTotal'] != '0' ) ) {
-
+  if ( !fieldHasValue(opts['included']) && !fieldHasValue(opts['excluded']) && !fieldHasValue(opts['minSize']) &&
+       !fieldHasValue(opts['maxSize']) && !fieldHasValue(opts['minTotal']) && !fieldHasValue(opts['maxTotal']) ) {
     //check both size and total are 0 or unset
-    if ( (opts['size'] == undefined || opts['size'] == '0' || opts['size'] == '') &&
-         (opts['total'] == undefined || opts['total'] == '0' || opts['total'] == '') ){
+    if ( !fieldHasValue(opts['size']) && !fieldHasValue(opts['total']) ){
       return combinations;
     }
 
     //check for both size and total
-    if ( opts['size'] != undefined && opts['size'] != '' && opts['size'] != '0' &&
-         opts['total'] != undefined && opts['total'] != '' && opts['total'] != '0'){
-
+    if ( fieldHasValue(opts['size']) && fieldHasValue(opts['total']) ){
       return allCombos[opts['size']][opts['total']] || []
     }
-
   }
 
   //return filtered list
