@@ -104,9 +104,9 @@ const filterAllCombos = function(opts) {
   }
 
   if ( fieldHasValue(opts['total'])){
-    a = a.sort(sizeSort);
+    a = a.sort(totalSort);
   } else {
-    a = a.sort(totalSort)
+    a = a.sort(sizeSort)
   }
 
   return a
@@ -142,7 +142,7 @@ export const getCombos = function(opts){
        !fieldHasValue(opts['maxSize']) && !fieldHasValue(opts['minTotal']) && !fieldHasValue(opts['maxTotal']) ) {
     //check both size and total are 0 or unset
     if ( !fieldHasValue(opts['size']) && !fieldHasValue(opts['total']) ){
-      return combinations;
+      return combinations.sort(sizeSort);
     }
 
     //check for both size and total
