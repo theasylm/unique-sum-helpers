@@ -73,19 +73,19 @@
       </div>
       <hr/>
       <div>
-        <span class="hidden-field-label">Missing:</span> <span v-bind:class="{hidden: hideMissingField}" class="hidden-field">{{missing}}</span>
+        <span class="hidden-field-label" >Missing:</span> <span v-bind:class="{hidden: showMissing}" class="hidden-field">{{missing}}</span>
         <i v-on:click="toggleMissing" class="bi" v-bind:class="missingEye"></i>
       </div>
       <div>
-        <span class="hidden-field-label">Required:</span> <span v-bind:class="{hidden: hideRequiredField}" class="hidden-field">{{required}}</span>
+        <span class="hidden-field-label">Required:</span> <span v-bind:class="{hidden: showRequired}" class="hidden-field">{{required}}</span>
         <i v-on:click="toggleRequired" class="bi" v-bind:class="requiredEye"></i>
       </div>
       <div>
-        <span class="hidden-field-label">Sum info:</span> <span v-bind:class="{hidden: hideSumField}" class="hidden-field">Min: {{minMaxSum.min}}; Max: {{minMaxSum.max}}</span>
+        <span class="hidden-field-label">Sum info:</span> <span v-bind:class="{hidden: showSumInfo}" class="hidden-field">Min: {{minMaxSum.min}}; Max: {{minMaxSum.max}}</span>
         <i v-on:click="toggleSumInfo" class="bi" v-bind:class="sumEye"></i>
       </div>
       <div>
-        <span class="hidden-field-label">Length info:</span> <span v-bind:class="{hidden: hideLengthField}" class="hidden-field">Min: {{minMaxLength.min}}; Max: {{minMaxLength.max}}</span>
+        <span class="hidden-field-label">Length info:</span> <span v-bind:class="{hidden: showLengthInfo}" class="hidden-field">Min: {{minMaxLength.min}}; Max: {{minMaxLength.max}}</span>
         <i v-on:click="toggleLength" class="bi" v-bind:class="lengthEye"></i>
       </div>
       <div>Possibilities: {{possibilities}}</div>
@@ -99,7 +99,7 @@
           ></combo-row>
       </tbody>
     </table>
-    <textarea v-model="notes" class="form-control"></textarea>
+    <textarea v-model="notes" class="form-control" placeholder="Notes"></textarea>
   </div>
 </template>
 
@@ -208,26 +208,50 @@
       missingEye: function(){
         return {
           "bi-eye": this.hideMissingField,
-          "bi-eye-slash": !this.hideMissingField
+          "bi-eye-slash": !this.hideMissingField,
+          "hide-eye": this.$parent.showAll
         }
       },
       requiredEye: function(){
         return {
           "bi-eye": this.hideRequiredField,
-          "bi-eye-slash": !this.hideRequiredField
+          "bi-eye-slash": !this.hideRequiredField,
+          "hide-eye": this.$parent.showAll
         }
       },
       lengthEye: function(){
         return {
           "bi-eye": this.hideLengthField,
-          "bi-eye-slash": !this.hideLengthField
+          "bi-eye-slash": !this.hideLengthField,
+          "hide-eye": this.$parent.showAll
         }
       },
       sumEye: function(){
         return {
           "bi-eye": this.hideSumField,
-          "bi-eye-slash": !this.hideSumField
+          "bi-eye-slash": !this.hideSumField,
+          "hide-eye": this.$parent.showAll
         }
+      },
+      showMissing: function(){
+        if (this.$parent.showAll)
+          return false
+        return this.hideMissingField
+      },
+      showRequired: function(){
+        if (this.$parent.showAll)
+          return false
+        return this.hideRequiredField
+      },
+      showSumInfo: function(){
+        if (this.$parent.showAll)
+          return false
+        return this.hideSumField
+      },
+      showLengthInfo: function(){
+        if (this.$parent.showAll)
+          return false
+        return this.hideLengthField
       }
     },
     methods: {
@@ -268,58 +292,14 @@
           this.activeCombos.push(combo)
         }
       },
-      showSize: function(){
-        if (this.size != 0){
-          return {display: 'block'}
-        } else {
-          return { display: 'none'}
-        }
-      },
-      showTotal: function(){
-        if (this.total != 0){
-          return {display: 'block'}
-        } else {
-          return { display: 'none'}
-        }
-      },
-      showIncluded: function(){
-        if (this.included.length == 0)
-          return {display: 'none'}
-        return {display: 'block'}
-      },
-      showExcluded: function() {
-        if (this.excluded.length == 0)
-          return {display: 'none'}
-        return {display: 'block'}
-      },
-      showMissing: function() {
-        if (this.missing.length == 0)
-          return {display: 'none'}
-        return {display: 'block'}
-      },
-      showRequired: function() {
-        if (this.required.length == 0)
-          return {display: 'none'}
-        return {display: 'block'}
-      },
       toggleMissing: function(){
         this.hideMissingField = !this.hideMissingField
       },
       toggleRequired: function(){
         this.hideRequiredField = !this.hideRequiredField
       },
-      showLength: function() {
-        if (this.size == 0)
-          return {display: 'block'}
-        return {display: 'none'}
-      },
       toggleLength: function(){
         this.hideLengthField = !this.hideLengthField
-      },
-      showSumInfo: function() {
-        if (this.total == 0)
-          return {display: 'block'}
-        return {display: 'none'}
       },
       toggleSumInfo: function(){
         this.hideSumField = !this.hideSumField
@@ -351,10 +331,6 @@
   #sum-form .row {
     margin-bottom: 10px !important;
   }
-  input {
-    padding-left: 5px;
-    width: 12rem;
-  }
   hr {
     margin: .3rem !important;
   }
@@ -383,6 +359,10 @@
   }
   .sum-helper-wrapper input {
     margin-left: .25rem;
+    padding-left: 5px;
+    width: 12rem;
   }
-
+  .hide-eye {
+    display:  none !important;
+  }
 </style>

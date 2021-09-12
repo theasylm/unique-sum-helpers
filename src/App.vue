@@ -1,8 +1,15 @@
 <template>
   <div id="app" class="container-fluid">
     <div class="row">
-      <div class="col-12 col-md-auto"><h1>Unique Sum Helpers</h1></div>
-      <div class="col-12 col-md-6 button-div"><add-helper-button></add-helper-button></div>
+      <div class="col"><h1>Unique Sum Helpers</h1></div>
+    </div>
+    <div class="row">
+      <div class="col button-div">
+        <add-helper-button></add-helper-button>
+      </div>
+    </div>
+    <div class="row">
+      <show-all-checkbox v-bind:showAll="showAll"></show-all-checkbox>
     </div>
     <div class="row">
       <sum-helper
@@ -19,6 +26,7 @@
   import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
   import AddHelperButton from './components/AddHelperButton.vue'
   import SumHelper from './components/SumHelper.vue'
+  import ShowAllCheckbox from './components/ShowAllCheckbox.vue'
 
   import 'bootstrap/dist/css/bootstrap.css'
   import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -30,7 +38,8 @@
     name: 'App',
     components: {
       AddHelperButton,
-      SumHelper
+      SumHelper,
+      ShowAllCheckbox
     },
     methods: {
       getNextHelperId: function() {
@@ -46,7 +55,8 @@
     data: function() {
       return {
         helpers: [{id:'helper-0'}],
-        count: 0
+        count: 0,
+        showAll: false
       }
     }
   }

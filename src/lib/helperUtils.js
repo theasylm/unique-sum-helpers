@@ -147,7 +147,7 @@ export const getCombos = function(opts){
 
     //check for both size and total
     if ( fieldHasValue(opts['size']) && fieldHasValue(opts['total']) ){
-      return allCombos[opts['size']][opts['total']] || []
+      return allCombos[opts['size']][opts['total']].sort(sizeSort) || []
     }
   }
 
