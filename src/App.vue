@@ -6,14 +6,10 @@
         <div class="navbar-header">
           <a class="navbar-brand" href="#">Unique Sum Helpers</a>
         </div>
-
-
-            <div class="form-group">
-              <add-helper-button></add-helper-button>
-              <show-all-checkbox v-bind:showAll="showAll"></show-all-checkbox>
-            </div>
-
-
+        <form class="form-inline">
+          <add-helper-button></add-helper-button>
+          <show-all-checkbox v-bind:showAll="showAll"></show-all-checkbox>
+        </form>
       </div>
     </nav>
     <div class="row helper-row">

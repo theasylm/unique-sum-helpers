@@ -6,7 +6,8 @@
 	export default {
 		name: 'AddHelperButton',
 		methods: {
-			addHelper: function() {
+			addHelper: function(e) {
+				e.preventDefault();
 				this.$parent.addHelper();
 			}
 		}
