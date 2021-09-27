@@ -92,7 +92,7 @@
   }
 
   body {
-    padding-top: 70px;
+    padding-top: 90px;
   }
   nav {
     background-color:  #fff;
