@@ -96,4 +96,8 @@
   nav a {
     color:  #000;
   }
+  nav .container-fluid {
+    justify-content:  flex-start !important;
+  }
+
 </style>
