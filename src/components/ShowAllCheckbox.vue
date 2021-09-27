@@ -1,10 +1,8 @@
 <template>
-	<div class="check-col">
-		<label for="show-all">
-			<input class="form-inline-check" type="checkbox" v-bind:checked='showAll' id="show-all" v-on:click="toggleShowAll"/>
-			Show all info
-		</label>
-	</div>
+	<label for="show-all">
+		<input class="form-inline-check" type="checkbox" v-bind:checked='showAll' id="show-all" v-on:click="toggleShowAll" />
+		Show all info
+	</label>
 </template>
 
 <script>
@@ -24,5 +22,8 @@
 	}
 	.check-col {
 		display: inline-block;
+	}
+	.check-col label {
+		cursor:  pointer;
 	}
 </style>

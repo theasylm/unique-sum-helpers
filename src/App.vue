@@ -1,17 +1,22 @@
 <template>
   <div id="app" class="container-fluid">
-    <div class="row">
-      <div class="col"><h1>Unique Sum Helpers</h1></div>
-    </div>
-    <div class="row">
-      <div class="col button-div">
-        <add-helper-button></add-helper-button>
+    <nav class="navbar navbar-default fixed-top">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Unique Sum Helpers</a>
+        </div>
+
+
+            <div class="form-group">
+              <add-helper-button></add-helper-button>
+              <show-all-checkbox v-bind:showAll="showAll"></show-all-checkbox>
+            </div>
+
+
       </div>
-    </div>
-    <div class="row">
-      <show-all-checkbox v-bind:showAll="showAll"></show-all-checkbox>
-    </div>
-    <div class="row">
+    </nav>
+    <div class="row helper-row">
       <sum-helper
         v-for="helper in helpers"
         v-bind:key="helper.id"
@@ -27,6 +32,8 @@
   import AddHelperButton from './components/AddHelperButton.vue'
   import SumHelper from './components/SumHelper.vue'
   import ShowAllCheckbox from './components/ShowAllCheckbox.vue'
+  //import $ from 'jquery'
+  import 'bootstrap'
 
   import 'bootstrap/dist/css/bootstrap.css'
   import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -56,10 +63,11 @@
       return {
         helpers: [{id:'helper-0'}],
         count: 0,
-        showAll: false
+        showAll: true
       }
     }
   }
+
 </script>
 <style>
   .container-fluid {
@@ -68,5 +76,28 @@
   }
   .button-div {
     margin-bottom: .5rem;
+  }
+  .header {
+    position:  fixed;
+    top:  0;
+    background-color: #FFF;
+    width: 100%;
+    padding-top: 1rem;
+  }
+
+
+  .dummy-row {
+    visibility:  hidden;
+    padding-top:  1.5rem;
+  }
+
+  body {
+    padding-top: 70px;
+  }
+  nav {
+    background-color:  #fff;
+  }
+  nav a {
+    color:  #000;
   }
 </style>

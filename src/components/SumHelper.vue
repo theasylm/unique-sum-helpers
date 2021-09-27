@@ -3,18 +3,18 @@
     <b-icon icon="x-square" v-on:click="removeHelper" class="remove-helper"></b-icon>
     <div class="sum-helper-wrapper">
       <div>
-        <label class="helper-label" :for="inputId('size')">Size:</label>
-        <input type="number"
-               :id="inputId('size')"
-               v-model="size"
-               v-on:input="updateHelper"
-               v-on:click="(e) => e.target.select()" />
-      </div>
-      <div>
         <label class="helper-label" :for="inputId('total')">Total:</label>
         <input type="number"
                :id="inputId('total')"
                v-model="total"
+               v-on:input="updateHelper"
+               v-on:click="(e) => e.target.select()" />
+      </div>
+      <div>
+        <label class="helper-label" :for="inputId('size')">Size:</label>
+        <input type="number"
+               :id="inputId('size')"
+               v-model="size"
                v-on:input="updateHelper"
                v-on:click="(e) => e.target.select()" />
       </div>
@@ -32,25 +32,6 @@
                :id="inputId('excluded')"
                v-model="excluded"
                v-on:input="updateHelper" />
-      </div>
-      <hr/>
-      <div>
-        <label class="helper-label" :for="inputId('min-size')">Min Size:</label>
-        <input type="number"
-               :id="inputId('min-size')"
-               v-model="minSize"
-               v-on:input="updateHelper"
-               v-on:click="(e) => e.target.select()"
-               v-bind:disabled="sizeDisabled" />
-      </div>
-      <div>
-        <label class="helper-label" :for="inputId('max-size')">Max Size:</label>
-        <input type="number"
-               :id="inputId('max-size')"
-               v-model="maxSize"
-               v-on:input="updateHelper"
-               v-on:click="(e) => e.target.select()"
-               v-bind:disabled="sizeDisabled" />
       </div>
       <hr/>
       <div>
@@ -73,6 +54,25 @@
       </div>
       <hr/>
       <div>
+        <label class="helper-label" :for="inputId('min-size')">Min Size:</label>
+        <input type="number"
+               :id="inputId('min-size')"
+               v-model="minSize"
+               v-on:input="updateHelper"
+               v-on:click="(e) => e.target.select()"
+               v-bind:disabled="sizeDisabled" />
+      </div>
+      <div>
+        <label class="helper-label" :for="inputId('max-size')">Max Size:</label>
+        <input type="number"
+               :id="inputId('max-size')"
+               v-model="maxSize"
+               v-on:input="updateHelper"
+               v-on:click="(e) => e.target.select()"
+               v-bind:disabled="sizeDisabled" />
+      </div>
+      <hr/>
+      <div>
         <span class="hidden-field-label" >Missing:</span> <span v-bind:class="{hidden: showMissing}" class="hidden-field">{{missing}}</span>
         <i v-on:click="toggleMissing" class="bi" v-bind:class="missingEye"></i>
       </div>
@@ -81,11 +81,11 @@
         <i v-on:click="toggleRequired" class="bi" v-bind:class="requiredEye"></i>
       </div>
       <div>
-        <span class="hidden-field-label">Sum info:</span> <span v-bind:class="{hidden: showSumInfo}" class="hidden-field">Min: {{minMaxSum.min}}; Max: {{minMaxSum.max}}</span>
+        <span class="hidden-field-label">Total info:</span> <span v-bind:class="{hidden: showSumInfo}" class="hidden-field">Min: {{minMaxSum.min}}; Max: {{minMaxSum.max}}</span>
         <i v-on:click="toggleSumInfo" class="bi" v-bind:class="sumEye"></i>
       </div>
       <div>
-        <span class="hidden-field-label">Length info:</span> <span v-bind:class="{hidden: showLengthInfo}" class="hidden-field">Min: {{minMaxLength.min}}; Max: {{minMaxLength.max}}</span>
+        <span class="hidden-field-label">Size info:</span> <span v-bind:class="{hidden: showLengthInfo}" class="hidden-field">Min: {{minMaxLength.min}}; Max: {{minMaxLength.max}}</span>
         <i v-on:click="toggleLength" class="bi" v-bind:class="lengthEye"></i>
       </div>
       <div>Possibilities: {{possibilities}}</div>
@@ -323,7 +323,7 @@
     padding: 0 !important;
     height: max-content !important;
     background-color: lightgrey;
-    width: 20rem;
+    width: 22rem !important;
   }
   .sum-helper-wrapper {
     padding: 5px;
@@ -346,7 +346,7 @@
     display:inline;
    }
   .hidden-field {
-    width: 12rem;
+    width: 14rem;
     display: inline-block;
   }
   .hidden-field-label, .helper-label {
@@ -360,7 +360,7 @@
   .sum-helper-wrapper input {
     margin-left: .25rem;
     padding-left: 5px;
-    width: 12rem;
+    width: 14rem;
   }
   .hide-eye {
     display:  none !important;
