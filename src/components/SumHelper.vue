@@ -1,6 +1,9 @@
 <template>
   <div class="sum-helper" :id="helper.id">
-    <b-icon icon="x-square" v-on:click="removeHelper" class="remove-helper"></b-icon>
+    <div class="icons">
+      <b-icon icon="x-square" v-on:click="removeHelper" class="remove-helper"></b-icon>
+      <b-icon icon="arrow-counterclockwise" v-on:click="resetHelper" class="reset-helper"></b-icon>
+    </div>
     <div class="sum-helper-wrapper">
       <div>
         <label class="helper-label" :for="inputId('size')">Size:</label>
@@ -258,6 +261,19 @@
       removeHelper: function() {
         this.$parent.removeHelper(this.helper.id)
       },
+      resetHelper: function() {
+        this.size = 0
+        this.total = 0
+        this.included = ''
+        this.excluded = ''
+        this.minSize = ''
+        this.maxSize = ''
+        this.minTotal = ''
+        this.maxTotal = ''
+        let empty = []
+        this.activeCombos = [...empty]
+        this.combos = [...empty]
+      },
       updateHelper: function() {
         this.cleanInput();
         this.combos = [...helperUtils.getCombos({size: this.size,total: this.total,included: this.included,excluded: this.excluded,minSize: this.minSize,maxSize: this.maxSize,minTotal: this.minTotal,maxTotal: this.maxTotal})]
@@ -276,6 +292,10 @@
         this.cleanIncludedExcluded()
       },
       cleanIncludedExcluded: function() {
+        if (this.included === undefined )
+          return
+        if (this.excluded === undefined )
+          return
         let digits = this.included.split("")
         this.included = digits.filter((digit) => digit.match(/[1-9]/)).join("")
         this.included = this.included.split('').filter((v, i, a) => a.indexOf(v) === i).sort().join('')
@@ -313,7 +333,6 @@
 
 <style>
   .remove-helper {
-    float: right;
     margin-right: 5px;
     margin-top: 5px;
   }
@@ -364,5 +383,9 @@
   }
   .hide-eye {
     display:  none !important;
+  }
+  .icons {
+    float: right;
+    width: 1.5rem;
   }
 </style>

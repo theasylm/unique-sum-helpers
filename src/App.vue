@@ -49,15 +49,23 @@
         return 'helper-' + ++(this.count)
       },
       addHelper: function(){
-        this.helpers.push({id: this.getNextHelperId()})
+        this.helpers.push({id: this.getNextHelperId(),included:'',excluded:''})
       },
       removeHelper: function(id) {
         this.helpers.splice(this.helpers.findIndex(helper => helper.id == id),1)
+      },
+      resetHelper: function(id) {
+        console.log('got here')
+        let index = this.helpers.findIndex(helper => helper.id == id)
+        let helpers = [...this.helpers]
+        helpers.splice(index,1,{id:id})
+        console.log(helpers)
+        this.$set(this.helpers, helpers)
       }
     },
     data: function() {
       return {
-        helpers: [{id:'helper-0'}],
+        helpers: [{id:'helper-0',included:'',excluded:''}],
         count: 0,
         showAll: true
       }
