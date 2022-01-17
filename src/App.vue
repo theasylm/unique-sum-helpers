@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="container-fluid">
+  <div id="app" class="container-fluid" v-bind:class="{dark: dark}">
     <nav class="navbar navbar-default fixed-top">
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -9,6 +9,7 @@
         <form class="form-inline">
           <add-helper-button></add-helper-button>
           <show-all-checkbox v-bind:showAll="showAll"></show-all-checkbox>
+          <dark-mode-checkbox v-bind:dark="dark"></dark-mode-checkbox>
         </form>
       </div>
     </nav>
@@ -28,6 +29,7 @@
   import AddHelperButton from './components/AddHelperButton.vue'
   import SumHelper from './components/SumHelper.vue'
   import ShowAllCheckbox from './components/ShowAllCheckbox.vue'
+  import DarkModeCheckbox from './components/DarkModeCheckbox.vue'
   //import $ from 'jquery'
   import 'bootstrap'
 
@@ -42,7 +44,8 @@
     components: {
       AddHelperButton,
       SumHelper,
-      ShowAllCheckbox
+      ShowAllCheckbox,
+      DarkModeCheckbox
     },
     methods: {
       getNextHelperId: function() {
@@ -67,13 +70,22 @@
       return {
         helpers: [{id:'helper-0',included:'',excluded:''}],
         count: 0,
-        showAll: true
+        showAll: true,
+        dark: false
       }
     }
   }
 
 </script>
 <style>
+  #app.dark, #app.dark nav {
+    background-color: #333;
+  }
+
+  #app.dark nav, #app.dark nav .navbar-brand {
+    color: white;
+  }
+
   .container-fluid {
     padding-left: 2rem;
     padding-right: 2rem;
@@ -89,6 +101,9 @@
     padding-top: 1rem;
   }
 
+  .row.helper-row {
+    margin-top: -30px;
+  }
 
   .dummy-row {
     visibility:  hidden;
