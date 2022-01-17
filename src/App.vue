@@ -78,6 +78,9 @@
 
 </script>
 <style>
+  #app {
+    min-height:  100vh;
+  }
   #app.dark, #app.dark nav {
     background-color: #333;
   }
