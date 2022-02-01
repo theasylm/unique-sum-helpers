@@ -7,8 +7,8 @@
           <a class="navbar-brand" href="#">Unique Sum Helpers</a>
         </div>
         <form class="form-inline">
-          <add-helper-button></add-helper-button>
           <settings-cog></settings-cog>
+          <add-helper-button></add-helper-button>
         </form>
       </div>
     </nav>

@@ -1,7 +1,7 @@
 <template>
   <div id="cog">
     <b-icon icon="gear-fill" id="popover-target-1"></b-icon>
-    <b-popover target="popover-target-1" triggers="click" placement="bottomright">
+    <b-popover target="popover-target-1" triggers="click" placement="bottom">
       <template #title>Settings</template>
       <div class="form-check form-switch">
         <input class="form-check-input" type="checkbox" role="switch" id="show-all-switch" v-on:click="toggleShowAll" v-bind:checked="this.$parent.showAll">
@@ -18,7 +18,7 @@
 <style>
 	#cog {
 		display: inline;
-		margin-left:  1em;
+		margin-right:  1em;
 	}
   #show-all, #dark {
     margin: 1rem;
@@ -41,7 +41,6 @@
   }
 
   .dark .form-switch .form-check-input {
-    background-position: left center;
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e") !important;
   }
 </style>
