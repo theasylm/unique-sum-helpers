@@ -43,10 +43,22 @@
   .removed {
     color: #999 !important;
   }
+  .dark .removed {
+    color:  #666 !important;
+  }
   i {
     color: black;
     cursor: pointer;
     margin-left: 0.60rem;
+  }
+  .dark i, .dark tr {
+    color: #efefef !important;
+  }
+  .dark i {
+    margin-left: 0.3rem;
+  }
+  .dark .form-check-input:checked {
+    border-color:  #efefef;
   }
   .combo-total {
     font-weight:  bold;

@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="container-fluid" v-bind:class="{dark: dark}">
+  <div id="app" class="container-fluid">
     <nav class="navbar navbar-default fixed-top">
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -8,8 +8,7 @@
         </div>
         <form class="form-inline">
           <add-helper-button></add-helper-button>
-          <show-all-checkbox v-bind:showAll="showAll"></show-all-checkbox>
-          <dark-mode-checkbox v-bind:dark="dark"></dark-mode-checkbox>
+          <settings-cog></settings-cog>
         </form>
       </div>
     </nav>
@@ -28,9 +27,8 @@
   import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
   import AddHelperButton from './components/AddHelperButton.vue'
   import SumHelper from './components/SumHelper.vue'
-  import ShowAllCheckbox from './components/ShowAllCheckbox.vue'
-  import DarkModeCheckbox from './components/DarkModeCheckbox.vue'
-  //import $ from 'jquery'
+  import SettingsCog from './components/SettingsCog.vue'
+  import $ from 'jquery'
   import 'bootstrap'
 
   import 'bootstrap/dist/css/bootstrap.css'
@@ -44,8 +42,7 @@
     components: {
       AddHelperButton,
       SumHelper,
-      ShowAllCheckbox,
-      DarkModeCheckbox
+      SettingsCog
     },
     methods: {
       getNextHelperId: function() {
@@ -58,20 +55,62 @@
         this.helpers.splice(this.helpers.findIndex(helper => helper.id == id),1)
       },
       resetHelper: function(id) {
-        console.log('got here')
         let index = this.helpers.findIndex(helper => helper.id == id)
         let helpers = [...this.helpers]
         helpers.splice(index,1,{id:id})
-        console.log(helpers)
         this.$set(this.helpers, helpers)
+      },
+      toggleDark: function() {
+        this.dark = !this.dark
+        this.dark ? $('body').addClass('dark') : $('body').removeClass('dark')
+        window.localStorage.setItem('dark', this.dark)
+      },
+      toggleShowAll: function() {
+        this.showAll = !this.showAll
+        window.localStorage.setItem('showAll', this.showAll)
+      },
+      initializeDark: function() {
+        let dark = window.localStorage.getItem('dark')
+        if ( dark === undefined || dark === null ) {
+          if (window.matchMedia != undefined ){
+            dark = window.matchMedia('(prefers-color-scheme: dark)').matches
+            if ( dark == true ) {
+              $('body').addClass('dark')
+            }
+          } else {
+            dark = false
+          }
+          window.localStorage.setItem('dark',dark)
+          return dark
+        }
+        if ( dark == 'true') {
+          $('body').addClass('dark')
+          return true
+        }
+        else {
+          return false
+        }
+      },
+      initializeShowAll: function() {
+        let showAll = window.localStorage.getItem('showAll')
+        if ( showAll === undefined || showAll === null ) {
+          window.localStorage.setItem('showAll',true)
+          return true
+        }
+        if ( showAll == 'true') {
+          return true
+        }
+        else {
+          return false
+        }
       }
     },
     data: function() {
       return {
         helpers: [{id:'helper-0',included:'',excluded:''}],
         count: 0,
-        showAll: true,
-        dark: false
+        showAll: this.initializeShowAll(),
+        dark: this.initializeDark()
       }
     }
   }
@@ -81,14 +120,26 @@
   #app {
     min-height:  100vh;
   }
-  #app.dark, #app.dark nav {
-    background-color: #333;
+  .dark #app, .dark nav {
+    background-color: #121212;
   }
 
-  #app.dark nav, #app.dark nav .navbar-brand {
-    color: white;
+  .dark nav, .dark nav .navbar-brand {
+    color: #efefef;
   }
-
+  .dark button#add-helper-button {
+    background-color: #131313;
+    border-color: #efefef;
+    color: #efefef;
+  }
+  .dark input, .dark textarea {
+    background-color: #131313;
+    border-color: #efefef;
+    color: #efefef;
+  }
+  .dark input:disabled {
+    color: #666;
+  }
   .container-fluid {
     padding-left: 2rem;
     padding-right: 2rem;
@@ -105,7 +156,7 @@
   }
 
   .row.helper-row {
-    margin-top: -30px;
+    margin-top: -36px;
   }
 
   .dummy-row {

@@ -1,6 +1,6 @@
 <template>
 	<label for="dark">
-		<input class="form-inline-check" type="checkbox" v-bind:checked='dark' id="dark" v-on:click="toggleDark" />
+		<input class="form-inline-check" type="checkbox" v-bind:checked='dark' id="dark" />
 		Dark Mode
 	</label>
 </template>
@@ -11,7 +11,7 @@
 		props: ['dark'],
 		methods: {
 			toggleDark: function(){
-				this.$parent.dark = !this.$parent.dark
+				this.$parent.$parent.$parent.dark = !this.$parent.$parent.$parent.dark
 			}
 		}
 	}

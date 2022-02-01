@@ -344,6 +344,11 @@
     background-color: lightgrey;
     width: 22rem !important;
   }
+  .dark .sum-helper {
+    background-color: #121212;
+    border:  1px solid #efefef;
+    color: #efefef;
+  }
   .sum-helper-wrapper {
     padding: 5px;
   }
